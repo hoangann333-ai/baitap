@@ -1,2 +1,1 @@
-CREATE DATABASE my_data;
-GO
+CREATE DATABASE my_da_ta;
