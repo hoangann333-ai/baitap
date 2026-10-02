@@ -1,0 +1,2 @@
+CREATE DATABASE my_data;
+GO
