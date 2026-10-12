@@ -1,47 +1,50 @@
-## Mô hình ERD quản lý đơn đặt hàng
+PHIEUXUAT(
+    SoPX PK,
+    NgayXuat
+)
 
-### 1. Các thực thể và thuộc tính
-Thuộc tính định danh được ghi trước mỗi danh sách.
+VATTU(
+    MaVTU PK,
+    TenVTU
+)
 
-- ĐƠN VỊ KHÁCH: Mã ĐV, Tên ĐV, Địa chỉ, Điện thoại.
-- NGƯỜI ĐẶT: Mã số NĐ, Họ tên NĐ.
-- NGƯỜI NHẬN: Mã số NN, Họ tên NN.
-- HÀNG: Mã hàng, Tên hàng, Đơn vị tính, Mô tả hàng.
-- NGƯỜI GIAO: Mã số NG, Họ tên NG.
-- NƠI GIAO: Mã số ĐĐG, Tên nơi giao.
+PHIEUNHAP(
+    SoPN PK,
+    NgayNhap
+)
 
-### 2. Các mối quan hệ
+NHACC(
+    MaNCC PK,
+    TenNCC,
+    DiaChi
+)
 
-- THUỘC 1: Người đặt thuộc Đơn vị khách.
-  Một đơn vị khách có nhiều người đặt;
-  mỗi người đặt thuộc một đơn vị khách.
+DONDH(
+    SoDH PK,
+    NgayDH,
+    MaNCC FK → NHACC(MaNCC)
+)
 
-- THUỘC 2: Người nhận thuộc Đơn vị khách.
-  Một đơn vị khách có nhiều người nhận;
-  mỗi người nhận thuộc một đơn vị khách.
+NHACC_SDT(
+    MaNCC PK, FK → NHACC(MaNCC),
+    SDT PK
+)
 
-- ĐẶT: liên kết Người đặt và Hàng.
-  Các thuộc tính của quan hệ: Số ĐH, Ngày đặt, Số lượng.
+CT_PHIEUXUAT(
+    SoPX PK, FK → PHIEUXUAT(SoPX),
+    MaVTU PK, FK → VATTU(MaVTU),
+    DGXuat,
+    SLXuat
+)
 
-- GIAO: liên kết Người giao, Hàng, Người nhận và Nơi giao.
-  Các thuộc tính của quan hệ: Số PG, Ngày giao,
-  Số lượng, Đơn giá.
-  Thành tiền được tính bằng Số lượng × Đơn giá.
+CT_PHIEUNHAP(
+    SoPN PK, FK → PHIEUNHAP(SoPN),
+    MaVTU PK, FK → VATTU(MaVTU),
+    DGNhap,
+    SLNhap
+)
 
-### 3. Rút gọn mô hình
-
-Gộp Đơn vị đặt hàng và Đơn vị khách hàng thành
-Đơn vị khách vì cả hai đều là các đơn vị bên ngoài
-giao dịch với cửa hàng.
-
-Đơn vị khách có đủ thuộc tính:
-Mã ĐV, Tên ĐV, Địa chỉ, Điện thoại.
-
-### 4. Ký hiệu trên sơ đồ
-
-- Hình chữ nhật: thực thể.
-- Hình oval: thuộc tính.
-- Hình thoi: mối quan hệ.
-- Thuộc tính gạch chân: thuộc tính định danh.
-- 1 và N: lực lượng liên kết.
-<img width="2400" height="2100" alt="download" src="https://github.com/user-attachments/assets/beca1908-e062-4eca-916f-a224df131393" />
+CT_DONDH(
+    SoDH PK, FK → DONDH(SoDH),
+    MaVTU PK, FK → VATTU(MaVTU)
+)
