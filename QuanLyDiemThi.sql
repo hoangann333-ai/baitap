@@ -1,0 +1,50 @@
+-- CSDL quản lý điểm thi
+-- MaMH dùng VARCHAR(50) theo bảng mô tả; BangDiem.MaMH cùng độ dài để tạo FK.
+
+CREATE DATABASE IF NOT EXISTS QuanLyDiemThi
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+USE QuanLyDiemThi;
+
+-- Tạo GiaoVien trước vì MonHoc tham chiếu bảng này.
+CREATE TABLE IF NOT EXISTS GiaoVien (
+    MaGV VARCHAR(20) NOT NULL,
+    TenGV VARCHAR(50),
+    SDT VARCHAR(10),
+    CONSTRAINT PK_GiaoVien PRIMARY KEY (MaGV)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS HocSinh (
+    MaHS VARCHAR(20) NOT NULL,
+    TenHS VARCHAR(50),
+    NgaySinh DATETIME,
+    Lop VARCHAR(20),
+    GT VARCHAR(20),
+    CONSTRAINT PK_HocSinh PRIMARY KEY (MaHS)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS MonHoc (
+    MaMH VARCHAR(50) NOT NULL,
+    TenMH VARCHAR(50),
+    MaGV VARCHAR(20),
+    CONSTRAINT PK_MonHoc PRIMARY KEY (MaMH),
+    CONSTRAINT FK_MonHoc_GiaoVien FOREIGN KEY (MaGV) REFERENCES GiaoVien(MaGV)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS BangDiem (
+    MaHS VARCHAR(20) NOT NULL,
+    MaMH VARCHAR(50) NOT NULL,
+    DiemThi INT,
+    NgayKT DATETIME,
+    CONSTRAINT PK_BangDiem PRIMARY KEY (MaHS, MaMH),
+    CONSTRAINT FK_BangDiem_HocSinh FOREIGN KEY (MaHS) REFERENCES HocSinh(MaHS),
+    CONSTRAINT FK_BangDiem_MonHoc FOREIGN KEY (MaMH) REFERENCES MonHoc(MaMH)
+) ENGINE=InnoDB;
+
+-- Kiểm tra sau khi tạo
+SHOW TABLES;
+DESCRIBE HocSinh;
+DESCRIBE MonHoc;
+DESCRIBE BangDiem;
+DESCRIBE GiaoVien;
