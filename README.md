@@ -27,6 +27,7 @@ END //
 
 DELIMITER ;
 
+-- Chạy phần INSERT một lần để demo
 INSERT INTO employees (name, department, salary)
 VALUES
     ('John Doe', 'A', 3500),
