@@ -1,187 +1,68 @@
-:root {
-    --ink: #2e302d;
-    --muted: #72756d;
-    --green: #3c6654;
-    --green-dark: #294b3c;
-    --cream: #fbf8f1;
-    --line: #e4dfd3;
-    --white: #fffefa;
-}
-
-* { box-sizing: border-box; }
-
-html { scroll-behavior: smooth; }
-
 body {
-    margin: 0;
-    background: var(--cream);
-    color: var(--ink);
-    font-family: Georgia, "Times New Roman", serif;
-}
-
-.page-header {
-    max-width: 920px;
-    margin: 0 auto;
-    padding: 54px 24px 34px;
-    text-align: center;
-}
-
-.eyebrow {
-    margin: 0 0 12px;
-    color: var(--green);
+    margin: 40px;
     font-family: Arial, sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 2px;
 }
 
-h1 {
-    margin: 0;
-    color: var(--green-dark);
-    font-size: clamp(36px, 6vw, 58px);
-    font-weight: 500;
-}
-
-.intro {
-    max-width: 600px;
-    margin: 14px auto 26px;
-    color: var(--muted);
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.7;
-}
-
-.cover {
-    display: block;
-    width: min(100%, 620px);
-    height: 230px;
-    margin: 0 auto;
-    border-radius: 18px;
-    object-fit: cover;
-    box-shadow: 0 12px 32px #3b39251c;
-}
-
-.layout {
-    display: grid;
-    grid-template-columns: 270px minmax(0, 1fr);
-    gap: 30px;
-    max-width: 1040px;
-    margin: 0 auto;
-    padding: 18px 24px 56px;
-    align-items: start;
-}
-
-.contents {
-    position: sticky;
-    top: 20px;
-    padding: 22px;
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    background-color: var(--white);
-    box-shadow: 0 6px 18px #34331d0a;
-}
-
-.contents h2 {
-    margin: 0 0 14px;
-    color: var(--green-dark);
-    font-size: 23px;
-}
-
-.contents ol {
-    margin: 0;
-    padding-left: 22px;
-}
-
-.contents li {
-    padding: 12px 0 12px 4px;
-    border-top: 1px solid var(--line);
-}
-
-.contents a {
-    color: var(--ink);
-    text-decoration: none;
-}
-
-.contents a:hover,
-.contents a:focus-visible {
-    color: var(--green);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-}
-
-.contents h5 {
-    margin: 0 0 5px;
-    font-family: Arial, sans-serif;
-    font-size: 15px;
-}
-
-.contents span {
-    color: var(--muted);
-    font-family: Arial, sans-serif;
-    font-size: 12px;
-    line-height: 1.5;
-}
-
-.stories { min-width: 0; }
-
-.story {
-    margin: 0 0 22px;
-    padding: 30px clamp(22px, 5vw, 48px);
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    background: var(--white);
-    scroll-margin-top: 22px;
-}
-
-.story-number {
-    margin: 0 0 7px;
-    color: var(--green);
-    font-family: Arial, sans-serif;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-indent: 0;
-}
-
-.story h2 {
-    margin: 0 0 18px;
-    color: var(--green-dark);
+h3 {
+    margin: 0 0 28px;
     font-size: 28px;
-    font-weight: 500;
-    text-align: center;
 }
 
-.story p:not(.story-number) {
-    margin: 0 0 15px;
-    font-size: 17px;
-    line-height: 1.85;
-    text-align: justify;
-    text-indent: 2em;
+#menu,
+#menu ul,
+#menu li {
+    margin: 0;
+    padding: 0;
 }
 
-.back-link {
-    display: inline-block;
-    margin-top: 4px;
-    color: var(--green);
-    font-family: Arial, sans-serif;
-    font-size: 13px;
+#menu ul {
+    list-style: none;
+}
+
+#menu li {
+    position: relative;
+    box-sizing: border-box;
+    width: 216px;
+    height: 46px;
+    background-color: #000;
+    line-height: 46px;
+    cursor: pointer;
+}
+
+#menu li > a {
+    display: block;
+    padding: 0 30px;
+    color: #fff;
+    font-size: 22px;
     text-decoration: none;
+    white-space: nowrap;
 }
 
-.back-link:hover { text-decoration: underline; }
-
-footer {
-    padding: 24px;
-    border-top: 1px solid var(--line);
-    color: var(--muted);
-    font-family: Arial, sans-serif;
-    text-align: center;
+#menu li:hover,
+#menu li:focus-within {
+    background-color: #e00000;
 }
 
-@media (max-width: 720px) {
-    .page-header { padding-top: 36px; }
-    .cover { height: 180px; }
-    .layout { grid-template-columns: 1fr; gap: 18px; }
-    .contents { position: static; }
-    .story { padding: 24px 20px; }
+/* Submenu nằm bên phải mục cha và mặc định được ẩn. */
+#menu ul ul {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    z-index: 10;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+/* Rê chuột hoặc dùng bàn phím đến mục cha để mở submenu. */
+#menu ul li:hover > ul,
+#menu ul li:focus-within > ul {
+    visibility: visible;
+    opacity: 1;
+}
+
+@media (max-width: 520px) {
+    body { margin: 24px; }
+    #menu li { width: 190px; }
+    #menu ul ul { left: 100%; }
 }
