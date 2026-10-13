@@ -1,37 +1,36 @@
-CREATE DATABASE IF NOT EXISTS company;
-USE company;
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thực hành CSS</title>
 
-CREATE TABLE IF NOT EXISTS employees (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) NOT NULL,
-    department VARCHAR(50) NOT NULL,
-    salary DECIMAL(10,2) NOT NULL
-);
+    <style>
+        h1 {
+            color: blue;
+            font-family: Tahoma, sans-serif;
+            font-size: 200%;
+        }
 
-DROP TRIGGER IF EXISTS update_department;
+        p {
+            color: red;
+            font-family: Arial, sans-serif;
+            font-size: 120%;
+            border: 1px solid grey;
+            padding: 10px;
+        }
 
-DELIMITER //
+        #element1 {
+            color: blue;
+        }
+    </style>
+</head>
+<body>
+    <h1>Đây là đề mục</h1>
 
-CREATE TRIGGER update_department
-BEFORE INSERT ON employees
-FOR EACH ROW
-BEGIN
-    IF NEW.salary >= 5000 THEN
-        SET NEW.department = 'Management';
-    ELSEIF NEW.salary >= 3000 THEN
-        SET NEW.department = 'Sales';
-    ELSE
-        SET NEW.department = 'Support';
-    END IF;
-END //
-
-DELIMITER ;
-
--- Chạy phần INSERT một lần để demo
-INSERT INTO employees (name, department, salary)
-VALUES
-    ('John Doe', 'A', 3500),
-    ('Jane Smith', 'A', 2000),
-    ('David Johnson', 'A', 6000);
-
-SELECT * FROM employees;
+    <p>Đây là đoạn văn bản.</p>
+    <p>Đây là đoạn văn bản.</p>
+    <p>Đây là đoạn văn bản.</p>
+    <p id="element1">Đoạn văn bản có thuộc tính id</p>
+</body>
+</html>
