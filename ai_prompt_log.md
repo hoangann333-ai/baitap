@@ -1,16 +1,13 @@
-# Nhật ký prompt AI — SmartFactory
+# Nhật ký sử dụng AI
 
-1. “Giải thích covering index trong InnoDB: vì sao SELECT có thể tránh tra cứu clustered index, và chi phí lưu trữ/ghi là gì?”
-   - Ghi nhận: index chứa toàn bộ cột truy vấn cần có thể bao phủ SELECT; mỗi secondary index làm tăng công việc ghi và dung lượng.
+1. **Câu hỏi:** Navbar có các liên kết dài, nên dùng Flexbox hay Grid?
+   **Kết luận:** Flexbox phù hợp vì navbar là một hàng linh hoạt; dùng `flex-wrap` để các mục có thể xuống dòng khi thiếu chỗ.
 
-2. “InnoDB lưu clustered index và secondary index khác nhau thế nào? Khi INSERT, có phải toàn bộ B-tree được sắp xếp lại không?”
-   - Ghi nhận: secondary index lưu khóa và khóa chính để truy về hàng; không sắp xếp lại toàn cây sau mỗi INSERT, nhưng có cập nhật trang và đôi khi page split.
+2. **Câu hỏi:** Widget lớn cần chiếm hai cột và hai hàng thì nên bố trí thế nào?
+   **Kết luận:** Dùng CSS Grid với `grid-column: span 2` và `grid-row: span 2`; các widget còn lại là phần tử ngang hàng trong cùng grid container.
 
-3. “Với bộ lọc `sensor_id = ?` và `recorded_at >= ?`, vì sao thứ tự `(sensor_id, recorded_at)` phù hợp?”
-   - Ghi nhận: điều kiện bằng đặt trước điều kiện range giúp dùng leftmost prefix của composite index.
+3. **Câu hỏi:** Dùng Bootstrap thế nào để ba thẻ giá xếp dọc trên điện thoại và thành ba cột trên desktop?
+   **Kết luận:** Đặt mỗi thẻ trong `col-12 col-md-4` bên trong `row`. Bootstrap cung cấp breakpoint và lưới responsive sẵn.
 
-4. “Trong `EXPLAIN`, `Using index` và `Using index condition` khác gì? `rows` có phải số thực đo không?”
-   - Ghi nhận: `Using index` chỉ covering access; `rows` là ước tính của optimizer.
-
-5. “Nếu `status VARCHAR(20)` đổi sang `TINYINT`, cần cân nhắc gì về dung lượng?”
-   - Ghi nhận: TINYINT dùng 1 byte; VARCHAR chiếm byte theo dữ liệu thực cộng metadata/charset, nên mức tiết kiệm tùy giá trị và encoding.
+4. **Câu hỏi:** Có thể kết hợp Grid, Flexbox và Bootstrap không?
+   **Kết luận:** Có. Bài này dùng Grid cho vùng dashboard, Flexbox cho navbar và lưới Bootstrap cho bảng giá; Flexbox cũng có thể căn giữa nội dung bên trong một widget.
