@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 440" role="img" aria-labelledby="title desc">
+  <title id="title">Góc đọc truyện</title>
+  <desc id="desc">Quyển sách mở trên bàn gỗ dưới ánh đèn ấm, bên cửa sổ trời chiều.</desc>
+  <defs>
+    <linearGradient id="wall" x2="0" y2="1"><stop stop-color="#dfe8df"/><stop offset="1" stop-color="#f4e8d1"/></linearGradient>
+    <linearGradient id="table" x2="0" y2="1"><stop stop-color="#a9764d"/><stop offset="1" stop-color="#684832"/></linearGradient>
+    <radialGradient id="glow"><stop stop-color="#ffe9a6" stop-opacity=".9"/><stop offset="1" stop-color="#ffe9a6" stop-opacity="0"/></radialGradient>
+  </defs>
+  <rect width="1200" height="440" fill="url(#wall)"/>
+  <circle cx="880" cy="155" r="230" fill="url(#glow)"/>
+  <rect x="0" y="300" width="1200" height="140" fill="url(#table)"/>
+  <rect x="90" y="52" width="285" height="220" rx="12" fill="#78958a" opacity=".35"/>
+  <rect x="108" y="70" width="249" height="184" rx="5" fill="#bfd1c1"/>
+  <path d="M232 70v184M108 162h249" stroke="#fff8e9" stroke-width="12"/>
+  <circle cx="303" cy="111" r="35" fill="#f2c879"/>
+  <path d="M510 302c65-88 154-105 205-10v80H510z" fill="#f5f0df" stroke="#574938" stroke-width="5"/>
+  <path d="M715 292c66-87 155-97 207 0v80H715z" fill="#fffaf0" stroke="#574938" stroke-width="5"/>
+  <path d="M715 296v78" stroke="#c8bba0" stroke-width="4"/>
+  <path d="M552 321h128M548 340h137M753 320h132M749 341h140" stroke="#b8aa8d" stroke-width="4" opacity=".8"/>
+  <path d="M826 180v75m-38 0h76l-38-62-38 62z" fill="#52675b" stroke="#415247" stroke-width="5"/>
+  <path d="M788 255h76v12h-76z" fill="#735b43"/>
+  <path d="M810 267h32v34h-32z" fill="#735b43"/>
+  <circle cx="826" cy="225" r="90" fill="url(#glow)"/>
+  <path d="M963 307c0-54 37-88 77-88s76 34 76 88" fill="#6f8974"/>
+  <path d="M1003 219c0-39 17-64 38-64s39 25 39 64" fill="#78965f"/>
+  <ellipse cx="600" cy="387" rx="295" ry="18" fill="#3d2d20" opacity=".18"/>
+  <text x="600" y="414" text-anchor="middle" font-family="Arial, sans-serif" font-size="17" fill="#fff7e8" letter-spacing="4">A QUIET PLACE TO READ</text>
+</svg>
