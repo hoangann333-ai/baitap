@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trang chủ - Giao diện mạng xã hội</title>
+  <style>
+    :root {
+      --blue: #0866ff;
+      --bg: #f0f2f5;
+      --text: #1c1e21;
+      --muted: #65676b;
+      --line: #e4e6eb;
+      --card: #fff;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding-top: 64px;
+      background: var(--bg);
+      color: var(--text);
+      font: 15px Arial, Helvetica, sans-serif;
+    }
+    button { font: inherit; cursor: pointer; }
+
+    .topbar {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 10;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 0 20px;
+      background: var(--card);
+      box-shadow: 0 1px 4px #0002;
+    }
+    .brand-area, .top-actions, .search-box, .nav-links {
+      display: flex;
+      align-items: center;
+    }
+    .brand-area { gap: 10px; min-width: 260px; }
+    .brand {
+      color: var(--blue);
+      font-size: 38px;
+      font-weight: 800;
+      letter-spacing: -3px;
+      line-height: 1;
+    }
+    .search-box {
+      height: 42px;
+      gap: 9px;
+      padding: 0 14px;
+      border-radius: 24px;
+      background: var(--bg);
+      color: var(--muted);
+    }
+    .search-box input {
+      width: 170px;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      font-size: 14px;
+    }
+    .nav-links { height: 100%; gap: 8px; }
+    .nav-item {
+      width: 104px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      border-radius: 9px;
+      color: var(--muted);
+      font-size: 24px;
+      text-decoration: none;
+    }
+    .nav-item:hover, .nav-item.active { color: var(--blue); background: #f0f2f5; }
+    .nav-item.active { border-bottom: 3px solid var(--blue); border-radius: 0; }
+    .top-actions { min-width: 260px; justify-content: flex-end; gap: 10px; }
+    .circle-btn, .avatar {
+      width: 40px;
+      height: 40px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 50%;
+      background: #e4e6eb;
+      color: var(--text);
+      font-size: 19px;
+    }
+    .avatar { background: #d9e7ff; font-weight: 700; color: #2457a7; }
+
+    .layout {
+      max-width: 1500px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 280px minmax(420px, 680px) 300px;
+      justify-content: space-between;
+      gap: 28px;
+      padding: 22px 24px 40px;
+    }
+    .left-sidebar, .right-sidebar {
+      position: sticky;
+      top: 84px;
+      align-self: start;
+      max-height: calc(100vh - 100px);
+      overflow-y: auto;
+      scrollbar-width: thin;
+    }
+    .side-link {
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 7px 10px;
+      border-radius: 8px;
+      color: var(--text);
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .side-link:hover { background: #e4e6eb; }
+    .side-icon { width: 30px; text-align: center; font-size: 22px; }
+    .profile-small { color: #2759a5; }
+    .sidebar-divider { border: 0; border-top: 1px solid #ccd0d5; margin: 12px 4px; }
+    .section-label {
+      margin: 15px 10px 8px;
+      color: var(--muted);
+      font-size: 17px;
+      font-weight: 700;
+    }
+    .shortcut { color: var(--muted); font-size: 13px; line-height: 1.5; padding: 0 10px; }
+
+    main { min-width: 0; }
+    .stories {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 9px;
+      margin-bottom: 16px;
+    }
+    .story {
+      height: 178px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      background: linear-gradient(145deg, #89b8e8, #3b5b8a);
+      color: #fff;
+      box-shadow: 0 1px 3px #0002;
+    }
+    .story:nth-child(2) { background: linear-gradient(145deg, #e4a475, #7b3d67); }
+    .story:nth-child(3) { background: linear-gradient(145deg, #90c4a5, #326c74); }
+    .story:nth-child(4) { background: linear-gradient(145deg, #d6a842, #923d36); }
+    .story::after {
+      content: "";
+      position: absolute;
+      inset: 40% 0 0;
+      background: linear-gradient(transparent, #0009);
+    }
+    .story-photo { position: absolute; inset: 20px 0 45px; display: grid; place-items: center; font-size: 52px; }
+    .story-name { position: absolute; z-index: 1; bottom: 12px; left: 10px; right: 8px; font-size: 13px; font-weight: 700; }
+    .story-add {
+      position: absolute; z-index: 2; left: 10px; top: 10px;
+      width: 34px; height: 34px; display: grid; place-items: center;
+      border: 3px solid #fff; border-radius: 50%; background: var(--blue); font-size: 22px;
+    }
+
+    .card {
+      margin-bottom: 16px;
+      padding: 15px;
+      border-radius: 10px;
+      background: var(--card);
+      box-shadow: 0 1px 2px #0001;
+    }
+    .composer-top { display: flex; align-items: center; gap: 10px; }
+    .composer-input {
+      flex: 1; height: 42px; padding: 12px 16px; border: 0; border-radius: 22px;
+      background: var(--bg); color: var(--muted); text-align: left;
+    }
+    .composer-input:hover { background: #e4e6eb; }
+    .composer-tools { display: flex; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line); }
+    .composer-tool {
+      flex: 1; border: 0; border-radius: 7px; padding: 9px 4px; background: transparent;
+      color: var(--muted); font-weight: 600;
+    }
+    .composer-tool:hover { background: var(--bg); }
+
+    .post-head { display: flex; align-items: center; gap: 10px; }
+    .post-meta { flex: 1; }
+    .post-name { font-weight: 700; }
+    .post-time { margin-top: 4px; color: var(--muted); font-size: 12px; }
+    .more { border: 0; background: transparent; color: var(--muted); font-size: 22px; }
+    .post-text { margin: 14px 0; line-height: 1.5; }
+    .post-image {
+      min-height: 280px; display: grid; place-items: center; border-radius: 6px;
+      background: linear-gradient(135deg, #c6e4f4, #80ac91 48%, #e5c18d);
+      color: #fff; font-size: 72px;
+    }
+    .post-stats { display: flex; justify-content: space-between; color: var(--muted); font-size: 13px; padding: 11px 2px; }
+    .post-buttons { display: flex; border-top: 1px solid var(--line); padding-top: 6px; }
+    .post-buttons button { flex: 1; border: 0; border-radius: 6px; padding: 9px; background: transparent; color: var(--muted); font-weight: 600; }
+    .post-buttons button:hover { background: var(--bg); }
+
+    .right-title { margin: 0 0 12px; color: var(--muted); font-size: 17px; }
+    .sponsored {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+      color: var(--text); text-decoration: none; font-weight: 600; line-height: 1.35;
+    }
+    .sponsored-box {
+      width: 105px; height: 78px; display: grid; place-items: center; flex: 0 0 auto;
+      border-radius: 8px; background: linear-gradient(135deg, #b9d9f3, #f4d49a); font-size: 28px;
+    }
+    .sponsored small { display: block; margin-top: 5px; color: var(--muted); font-weight: 400; }
+    .contact { display: flex; align-items: center; gap: 10px; min-height: 45px; font-weight: 600; }
+    .contact .avatar { position: relative; width: 36px; height: 36px; font-size: 15px; }
+    .online::after {
+      content: ""; position: absolute; right: 0; bottom: 0; width: 9px; height: 9px;
+      border: 2px solid #fff; border-radius: 50%; background: #31a24c;
+    }
+
+    @media (max-width: 1100px) {
+      .layout { grid-template-columns: 230px minmax(400px, 680px); justify-content: center; }
+      .right-sidebar { display: none; }
+      .brand-area, .top-actions { min-width: 200px; }
+    }
+    @media (max-width: 760px) {
+      body { padding-top: 58px; }
+      .topbar { height: 58px; padding: 0 10px; }
+      .brand-area { min-width: 0; }
+      .brand { font-size: 34px; }
+      .search-box { width: 40px; justify-content: center; padding: 0; }
+      .search-box input { display: none; }
+      .nav-links { gap: 0; }
+      .nav-item { width: 48px; font-size: 20px; }
+      .top-actions { min-width: 0; gap: 5px; }
+      .top-actions .circle-btn:nth-child(1), .top-actions .circle-btn:nth-child(2) { display: none; }
+      .layout { display: block; padding: 14px 10px 30px; }
+      .left-sidebar { display: none; }
+      .stories { gap: 6px; }
+      .story { height: 145px; }
+      .story-name { font-size: 11px; }
+      .post-image { min-height: 220px; }
+    }
+    @media (max-width: 430px) {
+      .nav-item { width: 38px; }
+      .stories { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .story { height: 125px; }
+      .story-photo { font-size: 38px; }
+      .story-name { left: 7px; bottom: 8px; }
+      .card { padding: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-area">
+      <div class="brand" aria-label="Trang chủ">f</div>
+      <label class="search-box">🔍 <input type="search" placeholder="Tìm kiếm trên trang"></label>
+    </div>
+
+    <nav class="nav-links" aria-label="Điều hướng chính">
+      <a class="nav-item active" href="#" aria-label="Trang chủ">⌂</a>
+      <a class="nav-item" href="#" aria-label="Video">▶</a>
+      <a class="nav-item" href="#" aria-label="Nhóm">♧</a>
+      <a class="nav-item" href="#" aria-label="Trò chơi">🎮</a>
+    </nav>
+
+    <div class="top-actions">
+      <button class="circle-btn" aria-label="Menu">☷</button>
+      <button class="circle-btn" aria-label="Tin nhắn">✉</button>
+      <button class="circle-btn" aria-label="Thông báo">♢</button>
+      <div class="avatar" title="Tài khoản">N</div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="left-sidebar" aria-label="Thanh điều hướng bên trái">
+      <a class="side-link profile-small" href="#"><span class="avatar">N</span> Nguyễn Văn Nam</a>
+      <a class="side-link" href="#"><span class="side-icon">👥</span>Bạn bè</a>
+      <a class="side-link" href="#"><span class="side-icon">🕒</span>Kỷ niệm</a>
+      <a class="side-link" href="#"><span class="side-icon">🔖</span>Đã lưu</a>
+      <a class="side-link" href="#"><span class="side-icon">👨‍👩‍👧‍👦</span>Nhóm</a>
+      <a class="side-link" href="#"><span class="side-icon">▶️</span>Video</a>
+      <a class="side-link" href="#"><span class="side-icon">🛍️</span>Marketplace</a>
+      <a class="side-link" href="#"><span class="side-icon">▾</span>Xem thêm</a>
+      <hr class="sidebar-divider">
+      <h2 class="section-label">Lối tắt của bạn</h2>
+      <a class="side-link" href="#"><span class="side-icon">💻</span>Cộng đồng lập trình</a>
+      <a class="side-link" href="#"><span class="side-icon">📚</span>Góc học tập</a>
+      <p class="shortcut">Quyền riêng tư · Điều khoản · Quảng cáo · Cookie · Xem thêm</p>
+    </aside>
+
+    <main>
+      <section class="stories" aria-label="Tin">
+        <div class="story"><span class="story-add">+</span><span class="story-photo">📷</span><span class="story-name">Tạo tin</span></div>
+        <div class="story"><span class="story-photo">🏞️</span><span class="story-name">Minh Anh</span></div>
+        <div class="story"><span class="story-photo">🚴</span><span class="story-name">Quốc Huy</span></div>
+        <div class="story"><span class="story-photo">🌅</span><span class="story-name">Thảo Linh</span></div>
+      </section>
+
+      <section class="card" aria-label="Tạo bài viết">
+        <div class="composer-top">
+          <div class="avatar">N</div>
+          <button class="composer-input">Nam ơi, bạn đang nghĩ gì?</button>
+        </div>
+        <div class="composer-tools">
+          <button class="composer-tool">🔴 Video trực tiếp</button>
+          <button class="composer-tool">🖼️ Ảnh/video</button>
+          <button class="composer-tool">😊 Cảm xúc</button>
+        </div>
+      </section>
+
+      <article class="card">
+        <div class="post-head">
+          <div class="avatar">M</div>
+          <div class="post-meta"><div class="post-name">Minh Anh</div><div class="post-time">2 giờ · 🌐</div></div>
+          <button class="more" aria-label="Tùy chọn">···</button>
+        </div>
+        <p class="post-text">Một ngày mới thật nhiều năng lượng! Chúc mọi người học tập và làm việc hiệu quả nhé ☀️</p>
+        <div class="post-image" role="img" aria-label="Hình minh họa phong cảnh">🏞️</div>
+        <div class="post-stats"><span>👍 ❤️ 128</span><span>24 bình luận · 8 lượt chia sẻ</span></div>
+        <div class="post-buttons">
+          <button>👍 Thích</button><button>💬 Bình luận</button><button>↗️ Chia sẻ</button>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="post-head">
+          <div class="avatar">H</div>
+          <div class="post-meta"><div class="post-name">Hoàng Nam</div><div class="post-time">Hôm qua · 🌐</div></div>
+          <button class="more" aria-label="Tùy chọn">···</button>
+        </div>
+        <p class="post-text">Cuối tuần cùng bạn bè khám phá một nơi mới. Những khoảnh khắc giản dị luôn đáng nhớ! 🌿</p>
+        <div class="post-image" role="img" aria-label="Hình minh họa chuyến đi">🌄</div>
+        <div class="post-stats"><span>👍 56</span><span>9 bình luận</span></div>
+        <div class="post-buttons">
+          <button>👍 Thích</button><button>💬 Bình luận</button><button>↗️ Chia sẻ</button>
+        </div>
+      </article>
+    </main>
+
+    <aside class="right-sidebar" aria-label="Thông tin bên phải">
+      <h2 class="right-title">Được tài trợ</h2>
+      <a class="sponsored" href="#">
+        <span class="sponsored-box">🎓</span>
+        <span>Khóa học lập trình cho người mới<small>learn.example</small></span>
+      </a>
+      <a class="sponsored" href="#">
+        <span class="sponsored-box">☕</span>
+        <span>Ưu đãi cuối tuần tại quán cà phê<small>coffee.example</small></span>
+      </a>
+      <hr class="sidebar-divider">
+      <h2 class="right-title">Người liên hệ</h2>
+      <div class="contact"><span class="avatar online">A</span> An Nguyễn</div>
+      <div class="contact"><span class="avatar online">B</span> Bình Trần</div>
+      <div class="contact"><span class="avatar online">L</span> Linh Phạm</div>
+      <div class="contact"><span class="avatar">M</span> Minh Hoàng</div>
+      <div class="contact"><span class="avatar online">T</span> Thu Hà</div>
+    </aside>
+  </div>
+</body>
+</html>
