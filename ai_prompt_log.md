@@ -1,13 +1,13 @@
 # Nhật ký sử dụng AI
 
-1. **Câu hỏi:** Navbar có các liên kết dài, nên dùng Flexbox hay Grid?
-   **Kết luận:** Flexbox phù hợp vì navbar là một hàng linh hoạt; dùng `flex-wrap` để các mục có thể xuống dòng khi thiếu chỗ.
+1. **Hỏi:** Vì sao float thường cần clearfix và vì sao absolute có thể làm nội dung bên dưới bị đè?
+   **Tóm tắt:** Float rời khỏi luồng bình thường một phần nên cha có thể không ôm chiều cao con; phần tử absolute bị loại khỏi luồng, không góp vào kích thước cha.
 
-2. **Câu hỏi:** Widget lớn cần chiếm hai cột và hai hàng thì nên bố trí thế nào?
-   **Kết luận:** Dùng CSS Grid với `grid-column: span 2` và `grid-row: span 2`; các widget còn lại là phần tử ngang hàng trong cùng grid container.
+2. **Hỏi:** Grid có thể tạo ảnh khảm gồm một ảnh lớn và hai ảnh nhỏ như thế nào?
+   **Tóm tắt:** Dùng `grid-template-areas` để đặt ảnh lớn ở hai hàng, hai ảnh còn lại ở cột bên cạnh; dùng `object-fit: cover` giữ ảnh phủ khung.
 
-3. **Câu hỏi:** Dùng Bootstrap thế nào để ba thẻ giá xếp dọc trên điện thoại và thành ba cột trên desktop?
-   **Kết luận:** Đặt mỗi thẻ trong `col-12 col-md-4` bên trong `row`. Bootstrap cung cấp breakpoint và lưới responsive sẵn.
+3. **Hỏi:** Bootstrap nên dùng breakpoint nào để bài viết thành 1, 2, rồi 4 cột?
+   **Tóm tắt:** `col-12 col-md-6 col-lg-3`: toàn chiều rộng dưới md, hai cột từ md, bốn cột từ lg.
 
-4. **Câu hỏi:** Có thể kết hợp Grid, Flexbox và Bootstrap không?
-   **Kết luận:** Có. Bài này dùng Grid cho vùng dashboard, Flexbox cho navbar và lưới Bootstrap cho bảng giá; Flexbox cũng có thể căn giữa nội dung bên trong một widget.
+4. **Hỏi:** Vì sao Flexbox hợp với thanh tác giả?
+   **Tóm tắt:** Đây là bố cục theo một trục; `align-items: center`, `justify-content: space-between` và `flex-wrap` căn hàng và xử lý màn hình hẹp.
