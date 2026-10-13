@@ -15,6 +15,8 @@ DELIMITER ;
 
 -- Gọi thủ tục
 CALL findAllCustomers();
+
+-- Tạo lại thủ tục để tìm khách hàng có mã 175
 DROP PROCEDURE IF EXISTS findAllCustomers;
 
 DELIMITER //
@@ -28,5 +30,5 @@ END //
 
 DELIMITER ;
 
--- Gọi lại thủ tục sau khi thay đổi
+-- Gọi lại thủ tục
 CALL findAllCustomers();
