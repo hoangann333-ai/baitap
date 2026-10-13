@@ -1,27 +1,33 @@
-USE QuanLySinhVien;
+USE classicmodels;
 
--- 1. Môn học có credit lớn nhất
+-- 1. Xem kế hoạch trước khi tạo index
+EXPLAIN
 SELECT *
-FROM Subject
-WHERE Credit = (
-    SELECT MAX(Credit)
-    FROM Subject
-);
+FROM customers
+WHERE customerName = 'Land of Toys Inc.';
 
--- 2. Môn học có điểm thi cao nhất
-SELECT DISTINCT S.*
-FROM Subject AS S
-JOIN Mark AS M ON M.SubjectId = S.SubjectId
-WHERE M.Mark = (
-    SELECT MAX(Mark)
-    FROM Mark
-);
+-- 2. Tạo index cho customerName
+ALTER TABLE customers
+ADD INDEX idx_customerName (customerName);
 
--- 3. Điểm trung bình của từng sinh viên, sắp xếp giảm dần
-SELECT S.StudentId,
-       S.StudentName,
-       AVG(M.Mark) AS AverageMark
-FROM Student AS S
-JOIN Mark AS M ON M.StudentId = S.StudentId
-GROUP BY S.StudentId, S.StudentName
-ORDER BY AverageMark DESC;
+-- 3. Xem kế hoạch sau khi tạo index
+EXPLAIN
+SELECT *
+FROM customers
+WHERE customerName = 'Land of Toys Inc.';
+
+-- 4. Tạo index kết hợp cho tên liên hệ
+ALTER TABLE customers
+ADD INDEX idx_full_name (contactFirstName, contactLastName);
+
+-- 5. Kiểm tra kế hoạch với index kết hợp
+EXPLAIN
+SELECT *
+FROM customers
+WHERE contactFirstName = 'Jean'
+   OR contactFirstName = 'King';
+   EXPLAIN
+SELECT *
+FROM customers
+WHERE contactFirstName = 'Jean'
+  AND contactLastName = 'King';
