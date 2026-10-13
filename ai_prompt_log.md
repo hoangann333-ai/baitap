@@ -1,13 +1,21 @@
-# Nhật ký sử dụng AI
+# Nhật ký hỏi đáp AI — JOIN trong FlashMart
 
-Nhật ký dưới đây phản ánh phần hỗ trợ AI trong buổi làm bài này. Học viên hãy bổ sung thời điểm, công cụ sử dụng và kết quả chạy thực tế trước khi nộp.
+## 1. JOIN mặc định
+**Prompt:** Trong MySQL, JOIN không ghi loại thì hoạt động như thế nào?  
+**Tóm tắt:** JOIN mặc định là INNER JOIN, chỉ giữ các dòng có khóa ghép khớp ở cả hai bảng.
 
-1. **Yêu cầu gửi cho AI:** Học viên cung cấp đề bài HealthSync và nhờ hỗ trợ làm bài.  
-   **Nội dung AI hỗ trợ:** Phân tích các điểm thiếu của thiết kế cũ: Boolean không lưu được vòng đời lịch hẹn; thiếu tiền cọc, phí phạt, lý do hủy; thiếu bảng đơn thuốc; khóa ngoại lịch hẹn cho phép NULL.
+## 2. COUNT với LEFT JOIN
+**Prompt:** Vì sao báo cáo khách hàng cần COUNT(o.order_id) thay vì COUNT(*)?  
+**Tóm tắt:** COUNT(cột) bỏ qua NULL. Khách chưa có đơn được LEFT JOIN tạo một dòng có o.order_id NULL, nên COUNT(o.order_id) là 0. COUNT(*) vẫn đếm dòng đó thành 1.
 
-2. **Yêu cầu gửi cho AI:** Học viên đề nghị viết bài hoàn chỉnh.  
-   **Nội dung AI hỗ trợ:** Soạn bản SQL migration và hai kịch bản DML; đề xuất `ENUM` cho trạng thái, `DECIMAL(10,2)` cho tiền, `CHECK` cho giới hạn phí phạt, `UNIQUE(appointment_id)` cho quan hệ một-một đơn thuốc, và trigger chặn kê đơn trước khi lịch hoàn tất.
+## 3. Anti-join
+**Prompt:** LEFT JOIN ... WHERE o.order_id IS NULL dùng để làm gì?  
+**Tóm tắt:** Cách này lọc các bản ghi bảng trái không có bản ghi khớp ở bảng phải. NOT EXISTS cũng là lựa chọn rõ nghĩa; NOT IN có thể gây kết quả khó đoán nếu truy vấn con chứa NULL.
 
-3. **Việc học viên cần tự kiểm tra:** Chạy script trên MySQL phiên bản hỗ trợ CHECK, xác nhận hai kịch bản, thử trigger với lịch chưa COMPLETED, rồi ghi lại lỗi/kết quả thực tế tại đây.
+## 4. Hiệu năng
+**Prompt:** LEFT JOIN ... IS NULL có luôn nhanh hơn NOT EXISTS không?  
+**Tóm tắt:** Không có quy tắc luôn đúng. MySQL có thể tối ưu cả hai dạng; cần chỉ mục trên cột ghép và dùng EXPLAIN để xem kế hoạch thực thi với dữ liệu thực tế. Nested-loop join là một thuật toán phổ biến khi nối bảng.
 
-> Không ghi rằng script đã chạy thành công nếu bạn chưa tự chạy. Hãy sửa nhật ký để khớp với thao tác và kết quả thật của bạn.
+## 5. FULL OUTER JOIN
+**Prompt:** MySQL có hỗ trợ FULL OUTER JOIN trực tiếp không?  
+**Tóm tắt:** MySQL không có cú pháp FULL OUTER JOIN trực tiếp. Có thể kết hợp LEFT JOIN và RIGHT JOIN bằng UNION, đồng thời tránh lặp các dòng đã khớp.
