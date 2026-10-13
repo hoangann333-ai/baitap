@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monday Times - Bố cục HTML5</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 24px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #111;
+            background: #fff;
+        }
+
+        .page {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        header {
+            padding: 28px 14px;
+            color: #fff;
+            background: #000;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: clamp(2rem, 5vw, 3.25rem);
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+            padding: 18px 6px;
+        }
+
+        nav a {
+            color: #111;
+            font-size: 1.15rem;
+            text-decoration: none;
+        }
+
+        nav a:hover,
+        nav a:focus {
+            color: #075bce;
+            text-decoration: underline;
+        }
+
+        .content-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 2fr) minmax(220px, 1fr);
+            gap: 12px;
+            align-items: stretch;
+        }
+
+        section {
+            padding: 14px;
+            background: #d3d3d3;
+        }
+
+        section > h2 {
+            margin: 18px 0 20px;
+            font-size: 1.8rem;
+        }
+
+        article {
+            margin: 0 4px 14px;
+            padding: 16px;
+            background: #fff;
+        }
+
+        article h2,
+        aside h2 {
+            margin-top: 12px;
+            font-size: 1.7rem;
+        }
+
+        article p,
+        aside p {
+            font-size: 1.05rem;
+            line-height: 1.45;
+        }
+
+        aside {
+            padding: 16px;
+            background: #eeeeee;
+        }
+
+        footer {
+            margin-top: 12px;
+            padding: 22px;
+            color: #fff;
+            background: #333;
+            text-align: center;
+        }
+
+        @media (max-width: 650px) {
+            body {
+                padding: 12px;
+            }
+
+            .content-layout {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header>
+            <h1>Monday Times</h1>
+        </header>
+
+        <nav aria-label="Chuyên mục">
+            <a href="#news">News</a>
+            <a href="#sports">Sports</a>
+            <a href="#weather">Weather</a>
+        </nav>
+
+        <div class="content-layout">
+            <section id="news">
+                <h2>News Section</h2>
+
+                <article>
+                    <h2>News Article</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque in porta lorem. Morbi condimentum est nibh, et consectetur tortor feugiat at.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque in porta lorem. Morbi condimentum est nibh, et consectetur tortor feugiat at.</p>
+                </article>
+
+                <article id="sports">
+                    <h2>Sports Article</h2>
+                    <p>Sports bring people together. Follow the latest stories, match reports, and highlights from around the world.</p>
+                </article>
+            </section>
+
+            <aside id="weather">
+                <h2>What's New?</h2>
+                <p>Read the latest updates and useful information from Monday Times.</p>
+                <p>Weather today: partly cloudy with a chance of sunshine.</p>
+            </aside>
+        </div>
+
+        <footer>
+            <p>© 2026 Monday Times</p>
+        </footer>
+    </div>
+</body>
+</html>
