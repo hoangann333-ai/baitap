@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Thực hành tạo menu ngang</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 16px 24px 40px;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #222;
+      background: #fff;
+    }
+
+    .page-title {
+      max-width: 920px;
+      margin: 0 auto 64px;
+      color: #294968;
+      font-size: 22px;
+      font-weight: 400;
+    }
+
+    #menu {
+      max-width: 860px;
+      height: 46px;
+      margin: 0 auto;
+      background: #000;
+      border: 1px solid #cdcdcd;
+    }
+
+    #menu ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    #menu > ul {
+      display: flex;
+      height: 100%;
+    }
+
+    #menu li {
+      position: relative;
+    }
+
+    #menu > ul > li {
+      flex: 0 0 144px;
+    }
+
+    #menu a {
+      display: block;
+      height: 45px;
+      padding: 0 14px;
+      color: #fff;
+      background: #000;
+      font-size: 20px;
+      line-height: 45px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    #menu > ul > li > a {
+      text-align: center;
+    }
+
+    #menu a:hover,
+    #menu a:focus-visible {
+      background: #f00;
+      outline: none;
+    }
+
+    #menu ul ul {
+      position: absolute;
+      z-index: 2;
+      top: 100%;
+      left: 0;
+      width: 304px;
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #menu ul ul a {
+      height: 43px;
+      line-height: 43px;
+      text-align: left;
+    }
+
+    #menu li:hover > ul,
+    #menu li:focus-within > ul {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .demo-caption {
+      max-width: 920px;
+      margin: 90px auto 0;
+      font-size: 23px;
+      font-style: italic;
+    }
+
+    .demo-caption a { color: #111; }
+
+    @media (max-width: 620px) {
+      body { padding-inline: 12px; }
+      .page-title { margin-bottom: 36px; }
+      #menu { height: auto; }
+      #menu > ul { flex-wrap: wrap; }
+      #menu > ul > li { flex: 1 1 50%; }
+      #menu ul ul { width: min(304px, 90vw); }
+      .demo-caption { margin-top: 70px; }
+    }
+  </style>
+</head>
+<body>
+  <p class="page-title">Kết quả của phần thực hành này như sau:</p>
+
+  <nav id="menu" aria-label="Danh mục học kỳ">
+    <ul>
+      <li>
+        <a href="#sem1">Sem 1</a>
+        <ul>
+          <li><a href="#computing-fundamental">Computing Fundamental</a></li>
+          <li><a href="#c-programming">C Programming</a></li>
+          <li><a href="#dynamic-website">Building Dynamic Website</a></li>
+          <li><a href="#transact-sql">MS Transact-SQL</a></li>
+          <li><a href="#project-1">Project</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#sem2">Sem 2</a>
+        <ul>
+          <li><a href="#cloud-computing">Cloud Computing</a></li>
+          <li><a href="#apj-1">APJ - I</a></li>
+          <li><a href="#apj-2">APJ - II</a></li>
+          <li><a href="#apj-3">APJ - III</a></li>
+          <li><a href="#eproject">eProject</a></li>
+        </ul>
+      </li>
+      <li><a href="#sem3">Sem 3</a></li>
+      <li><a href="#sem4">Sem 4</a></li>
+    </ul>
+  </nav>
+
+  <p class="demo-caption"><a href="#menu">demo menu ngang</a></p>
+</body>
+</html>
