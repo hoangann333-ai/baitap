@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap Login</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+          crossorigin="anonymous">
+
+    <style>
+        html,
+        body {
+            min-height: 100%;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 32px 16px;
+            background: #f5f5f5;
+        }
+
+        .form-signin {
+            width: 100%;
+            max-width: 380px;
+            padding: 32px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .bootstrap-logo {
+            width: 72px;
+            height: 72px;
+            margin-bottom: 24px;
+        }
+
+        .form-signin h1 {
+            margin-bottom: 24px;
+            font-size: 28px;
+            font-weight: 400;
+        }
+
+        .form-signin .form-control {
+            position: relative;
+            min-height: 48px;
+            padding: 10px 12px;
+            font-size: 16px;
+        }
+
+        .form-signin .form-control:focus {
+            z-index: 2;
+        }
+
+        .form-signin input[type="email"] {
+            margin-bottom: -1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .form-signin input[type="password"] {
+            margin-bottom: 14px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+        .remember-row {
+            margin-bottom: 20px;
+        }
+
+        .form-signin .btn {
+            width: 100%;
+            padding: 10px;
+        }
+
+        @media (max-width: 420px) {
+            .form-signin {
+                padding: 24px 12px;
+            }
+        }
+    </style>
+</head>
+<body class="text-center">
+    <main class="form-signin">
+        <form>
+            <svg class="bootstrap-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 118 94" role="img" aria-label="Bootstrap logo">
+                <title>Bootstrap</title>
+                <rect width="118" height="94" rx="15" fill="#563d7c"/>
+                <path fill="#fff" d="M35 21h25c13 0 20 6 20 16 0 7-4 12-10 14 8 2 13 8 13 17 0 12-9 19-23 19H35V21zm14 12v13h10c5 0 8-2 8-7s-3-6-8-6H49zm0 24v18h11c6 0 9-3 9-9 0-6-4-9-10-9H49z"/>
+            </svg>
+
+            <h1>Please sign in</h1>
+
+            <div class="form-floating">
+                <input type="email" class="form-control" id="inputEmail" placeholder="name@example.com" required autofocus>
+                <label for="inputEmail">Email address</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" class="form-control" id="inputPassword" placeholder="Password" required>
+                <label for="inputPassword">Password</label>
+            </div>
+
+            <div class="form-check remember-row d-flex justify-content-center">
+                <input class="form-check-input me-2" type="checkbox" value="remember-me" id="rememberMe">
+                <label class="form-check-label" for="rememberMe">Remember me</label>
+            </div>
+
+            <button class="btn btn-lg btn-primary" type="submit">Sign in</button>
+            <p class="mt-5 mb-3 text-muted">&copy; 2017–2018</p>
+        </form>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+            crossorigin="anonymous"></script>
+</body>
+</html>
