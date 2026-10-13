@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Web Layout</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 24px;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #333;
+            background: #fff;
+        }
+
+        .page {
+            width: min(100%, 900px);
+            min-height: 454px;
+            margin: 0 auto;
+            border: 1px solid #c8c8c8;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: stretch;
+            min-height: 42px;
+            color: #eee;
+            background: #222;
+        }
+
+        .navbar a {
+            display: flex;
+            align-items: center;
+            padding: 0 13px;
+            color: inherit;
+            font-size: 13px;
+            text-decoration: none;
+        }
+
+        .navbar a:hover,
+        .navbar a:focus {
+            color: #fff;
+            background: #080808;
+        }
+
+        .navbar .brand {
+            background: #111;
+        }
+
+        .navbar .login {
+            margin-left: auto;
+        }
+
+        .columns {
+            display: grid;
+            grid-template-columns: 17% minmax(0, 1fr) 17%;
+            min-height: 362px;
+        }
+
+        .sidebar,
+        .ads {
+            padding: 16px;
+            background: #f1f1f1;
+        }
+
+        .sidebar a {
+            display: block;
+            width: max-content;
+            margin: 2px auto 12px;
+            color: #2878c7;
+            font-size: 12px;
+            text-decoration: none;
+        }
+
+        .sidebar a:hover {
+            text-decoration: underline;
+        }
+
+        .main-content {
+            padding: 14px 12px;
+            background: #fff;
+        }
+
+        .main-content h1 {
+            margin: 0 0 6px;
+            font-size: 28px;
+        }
+
+        .main-content p {
+            margin: 0;
+            font-size: 12px;
+            line-height: 1.45;
+        }
+
+        .main-content hr {
+            margin: 16px 0;
+            border: 0;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .main-content h2 {
+            margin: 0 0 6px;
+            font-size: 20px;
+        }
+
+        .ad-box {
+            display: grid;
+            min-height: 56px;
+            margin-bottom: 16px;
+            place-items: center;
+            border: 1px solid #e1e1e1;
+            border-radius: 4px;
+            background: #f7f7f7;
+            font-size: 12px;
+        }
+
+        .footer {
+            display: grid;
+            min-height: 48px;
+            place-items: center;
+            color: #fff;
+            background: #555;
+            font-size: 12px;
+        }
+
+        @media (max-width: 620px) {
+            body {
+                padding: 12px;
+            }
+
+            .navbar {
+                flex-wrap: wrap;
+            }
+
+            .navbar a {
+                min-height: 42px;
+                padding: 0 10px;
+            }
+
+            .navbar .login {
+                margin-left: 0;
+            }
+
+            .columns {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: flex;
+                justify-content: center;
+                gap: 24px;
+                padding: 12px;
+            }
+
+            .sidebar a {
+                margin: 0;
+            }
+
+            .main-content {
+                min-height: 230px;
+                padding: 18px;
+            }
+
+            .ads {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 12px;
+            }
+
+            .ad-box {
+                margin: 0;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .navbar a {
+                padding: 0 8px;
+                font-size: 12px;
+            }
+
+            .ads {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <div class="navbar">
+            <a class="brand" href="#">Logo</a>
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Projects</a>
+            <a href="#">Contact</a>
+            <a class="login" href="#">⇥ Login</a>
+        </div>
+
+        <div class="columns">
+            <div class="sidebar">
+                <a href="#">Link</a>
+                <a href="#">Link</a>
+                <a href="#">Link</a>
+            </div>
+
+            <div class="main-content">
+                <h1>Welcome</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                <hr>
+                <h2>Test</h2>
+                <p>Lorem ipsum...</p>
+            </div>
+
+            <div class="ads">
+                <div class="ad-box">ADS</div>
+                <div class="ad-box">ADS</div>
+            </div>
+        </div>
+
+        <div class="footer">Footer Text</div>
+    </div>
+</body>
+</html>
