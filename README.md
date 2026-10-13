@@ -1,6 +1,6 @@
 USE QuanLySinhVien;
 
--- 1. Hiển thị môn học có số tín chỉ lớn nhất
+-- 1. Môn học có credit lớn nhất
 SELECT *
 FROM Subject
 WHERE Credit = (
@@ -8,7 +8,7 @@ WHERE Credit = (
     FROM Subject
 );
 
--- 2. Hiển thị môn học có điểm thi cao nhất
+-- 2. Môn học có điểm thi cao nhất
 SELECT DISTINCT S.*
 FROM Subject AS S
 JOIN Mark AS M ON M.SubjectId = S.SubjectId
@@ -17,7 +17,7 @@ WHERE M.Mark = (
     FROM Mark
 );
 
--- 3. Hiển thị sinh viên và điểm trung bình, xếp từ cao xuống thấp
+-- 3. Điểm trung bình của từng sinh viên, sắp xếp giảm dần
 SELECT S.StudentId,
        S.StudentName,
        AVG(M.Mark) AS AverageMark
