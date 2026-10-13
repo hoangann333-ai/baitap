@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PhimHoatHinh - Xem hoạt hình trực tuyến</title>
+  <style>
+    :root {
+      --red: #e53935;
+      --ink: #252525;
+      --muted: #6b7280;
+      --line: #e7e9ee;
+      --paper: #fff;
+      --page: #f4f5f8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding-top: 116px;
+      background: var(--page);
+      color: var(--ink);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .site-header {
+      position: fixed;
+      z-index: 20;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--paper);
+      box-shadow: 0 2px 8px #17203312;
+    }
+    .header-inner {
+      max-width: 1260px;
+      height: 68px;
+      margin: auto;
+      padding: 0 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+    .logo {
+      color: #2f3440;
+      font-size: 28px;
+      font-weight: 800;
+      font-style: italic;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .logo strong {
+      padding: 3px 7px;
+      border-radius: 8px;
+      background: var(--red);
+      color: white;
+      font-style: normal;
+    }
+    .search {
+      width: min(360px, 40vw);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: #f7f8fa;
+      color: var(--muted);
+    }
+    .search input {
+      width: 100%;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      font-size: 14px;
+    }
+    .head-link {
+      border-top: 1px solid var(--line);
+      background: #fff;
+    }
+    .nav-inner {
+      max-width: 1260px;
+      min-height: 46px;
+      margin: auto;
+      padding: 0 22px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0;
+    }
+    .nav-inner a {
+      padding: 9px 20px;
+      color: #3d424b;
+      text-decoration: none;
+      font-size: 14px;
+      border-radius: 6px;
+    }
+    .nav-inner a + a::before {
+      content: "|";
+      color: #c5c8ce;
+      position: relative;
+      left: -20px;
+      margin-right: -10px;
+    }
+    .nav-inner a:hover, .nav-inner a.active {
+      color: var(--red);
+      font-weight: 700;
+      background: #fff5f4;
+    }
+
+    .page {
+      max-width: 1260px;
+      margin: 24px auto 28px;
+      padding: 0 22px;
+    }
+    .content-grid {
+      display: grid;
+      grid-template-columns: minmax(270px, 0.78fr) minmax(0, 1.75fr);
+      gap: 22px;
+      align-items: start;
+    }
+    .video-list {
+      display: grid;
+      gap: 12px;
+    }
+    .video-card {
+      width: 100%;
+      padding: 9px;
+      display: grid;
+      grid-template-columns: 42% 1fr;
+      gap: 11px;
+      text-align: left;
+      border: 2px solid transparent;
+      border-radius: 10px;
+      background: var(--paper);
+      color: inherit;
+      cursor: pointer;
+      box-shadow: 0 1px 4px #1720330c;
+      transition: border-color .15s, transform .15s;
+    }
+    .video-card:hover { transform: translateY(-1px); border-color: #ffc7c4; }
+    .video-card.selected { border-color: var(--red); }
+    .thumbnail {
+      min-height: 96px;
+      position: relative;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      border-radius: 7px;
+      color: white;
+      font-size: 42px;
+      background: linear-gradient(135deg, #88c8e8, #405f9d);
+    }
+    .thumbnail::after {
+      content: "▶";
+      position: absolute;
+      right: 8px;
+      bottom: 7px;
+      padding: 4px 8px;
+      border-radius: 5px;
+      background: #0009;
+      color: white;
+      font-size: 12px;
+    }
+    .video-card:nth-child(2) .thumbnail { background: linear-gradient(135deg, #f7c46b, #d95f58); }
+    .video-card:nth-child(3) .thumbnail { background: linear-gradient(135deg, #90d2a3, #45818a); }
+    .video-card:nth-child(4) .thumbnail { background: linear-gradient(135deg, #b8a0e3, #5d66a8); }
+    .video-card:nth-child(5) .thumbnail { background: linear-gradient(135deg, #f0a3b1, #755da5); }
+    .video-info { align-self: center; }
+    .video-title { margin: 0 0 7px; font-size: 15px; line-height: 1.35; }
+    .video-meta { color: var(--muted); font-size: 12px; line-height: 1.5; }
+    .tag {
+      display: inline-block;
+      margin-top: 7px;
+      padding: 3px 7px;
+      border-radius: 4px;
+      background: #edf5ff;
+      color: #2461a6;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .watch-panel {
+      min-width: 0;
+      padding: 14px;
+      border-radius: 10px;
+      background: var(--paper);
+      box-shadow: 0 1px 4px #1720330c;
+    }
+    .player {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #111;
+    }
+    .player iframe, .player video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .player video { object-fit: contain; }
+    .player-switch {
+      display: flex;
+      gap: 8px;
+      margin: 12px 0 15px;
+    }
+    .player-switch button {
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: white;
+      color: #515763;
+      cursor: pointer;
+    }
+    .player-switch button.active {
+      border-color: #ffd0cd;
+      background: #fff3f2;
+      color: #c62828;
+      font-weight: 700;
+    }
+    .now-title { margin: 0 0 6px; font-size: 21px; line-height: 1.35; }
+    .now-meta { color: var(--muted); font-size: 13px; }
+    .description {
+      margin: 14px 0 0;
+      color: #414650;
+      font-size: 14px;
+      line-height: 1.65;
+    }
+    .quality-note {
+      display: inline-flex;
+      gap: 7px;
+      align-items: center;
+      margin-top: 14px;
+      padding: 7px 10px;
+      border-radius: 6px;
+      background: #f0f8f2;
+      color: #277342;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .empty {
+      display: none;
+      padding: 22px 12px;
+      text-align: center;
+      color: var(--muted);
+      background: white;
+      border-radius: 10px;
+    }
+    footer {
+      padding: 18px 15px;
+      text-align: center;
+      background: #e9ebf2;
+      color: #626875;
+      font-size: 13px;
+    }
+
+    @media (max-width: 820px) {
+      body { padding-top: 108px; }
+      .header-inner { height: 62px; }
+      .logo { font-size: 23px; }
+      .content-grid { grid-template-columns: 1fr; }
+      .video-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        order: 2;
+      }
+      .watch-panel { order: 1; }
+    }
+    @media (max-width: 560px) {
+      body { padding-top: 104px; }
+      .header-inner { padding: 0 12px; gap: 12px; }
+      .logo { font-size: 20px; }
+      .search { width: 44px; height: 40px; justify-content: center; padding: 0; }
+      .search input { display: none; }
+      .nav-inner { padding: 4px 6px; justify-content: space-around; }
+      .nav-inner a { padding: 9px 7px; font-size: 12px; }
+      .nav-inner a + a::before { display: none; }
+      .page { margin-top: 14px; padding: 0 10px; }
+      .video-list { grid-template-columns: 1fr; }
+      .video-card { grid-template-columns: 38% 1fr; }
+      .thumbnail { min-height: 90px; }
+      .watch-panel { padding: 10px; }
+      .now-title { font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="#" aria-label="Phim hoạt hình"><span>Phim</span><strong>HoạtHình</strong></a>
+      <label class="search" aria-label="Tìm phim"><span>🔎</span><input id="searchInput" type="search" placeholder="Tìm phim hoạt hình..."></label>
+    </div>
+    <nav class="head-link" aria-label="Menu chính">
+      <div class="nav-inner">
+        <a class="active" href="#phim">Phim hoạt hình</a>
+        <a href="#yeu-thich">Phim hoạt hình yêu thích</a>
+        <a href="#nhan-vat">Nhân vật hoạt hình</a>
+        <a href="#gop-y">Góp ý</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="page" id="phim">
+    <div class="content-grid">
+      <section aria-label="Danh sách phim">
+        <div class="video-list" id="videoList">
+          <button class="video-card selected" data-title="Chuyến phiêu lưu trong khu rừng" data-views="1.248.520" data-emoji="🐰" data-youtube="aqz-KE-bpKQ">
+            <span class="thumbnail">🐰</span>
+            <span class="video-info">
+              <h2 class="video-title">Chuyến phiêu lưu trong khu rừng</h2>
+              <span class="video-meta">1.248.520 lượt xem<br>Kênh Hoạt Hình Vui</span><br>
+              <span class="tag">HD · Thuyết minh</span>
+            </span>
+          </button>
+          <button class="video-card" data-title="Cuộc đua kỳ thú" data-views="856.310" data-emoji="🚗" data-youtube="eRsGyueVLvQ">
+            <span class="thumbnail">🚗</span>
+            <span class="video-info">
+              <h2 class="video-title">Cuộc đua kỳ thú</h2>
+              <span class="video-meta">856.310 lượt xem<br>Thế Giới Hoạt Hình</span><br>
+              <span class="tag">Full HD · Vietsub</span>
+            </span>
+          </button>
+          <button class="video-card" data-title="Người máy và những người bạn" data-views="642.907" data-emoji="🤖" data-youtube="R6MlUcmOul8">
+            <span class="thumbnail">🤖</span>
+            <span class="video-info">
+              <h2 class="video-title">Người máy và những người bạn</h2>
+              <span class="video-meta">642.907 lượt xem<br>Góc Phim Thiếu Nhi</span><br>
+              <span class="tag">HD · Lồng tiếng Việt</span>
+            </span>
+          </button>
+          <button class="video-card" data-title="Bí mật của đại dương" data-views="502.114" data-emoji="🐳" data-youtube="aqz-KE-bpKQ">
+            <span class="thumbnail">🐳</span>
+            <span class="video-info">
+              <h2 class="video-title">Bí mật của đại dương</h2>
+              <span class="video-meta">502.114 lượt xem<br>Kho Phim Hoạt Hình</span><br>
+              <span class="tag">HD · Thuyết minh</span>
+            </span>
+          </button>
+          <button class="video-card" data-title="Vương quốc kẹo ngọt" data-views="318.604" data-emoji="🍭" data-youtube="eRsGyueVLvQ">
+            <span class="thumbnail">🍭</span>
+            <span class="video-info">
+              <h2 class="video-title">Vương quốc kẹo ngọt</h2>
+              <span class="video-meta">318.604 lượt xem<br>Phim Hay Mỗi Ngày</span><br>
+              <span class="tag">Full HD · Vietsub</span>
+            </span>
+          </button>
+        </div>
+        <div class="empty" id="emptyState">Không tìm thấy phim phù hợp.</div>
+      </section>
+
+      <section class="watch-panel" aria-label="Trình phát phim">
+        <div class="player" id="player">
+          <iframe id="youtubePlayer"
+            src="https://www.youtube-nocookie.com/embed/aqz-KE-bpKQ?rel=0"
+            title="Video hoạt hình đang phát"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen></iframe>
+          <video id="localPlayer" controls playsinline preload="metadata" hidden>
+            <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+            Trình duyệt của bạn không hỗ trợ video HTML5.
+          </video>
+        </div>
+        <div class="player-switch" aria-label="Chọn loại trình phát">
+          <button class="active" id="youtubeTab" type="button">▶ YouTube</button>
+          <button id="videoTab" type="button">▣ Video HTML5 mẫu</button>
+        </div>
+        <h1 class="now-title" id="currentTitle">Chuyến phiêu lưu trong khu rừng</h1>
+        <div class="now-meta" id="currentMeta">1.248.520 lượt xem · Cập nhật gần đây · Kênh Hoạt Hình Vui</div>
+        <p class="description">
+          Cùng theo chân những người bạn nhỏ trong chuyến phiêu lưu vui nhộn, khám phá thiên nhiên và học cách giúp đỡ lẫn nhau. Danh sách phim được trình bày rõ ràng để các em dễ chọn nội dung muốn xem.
+        </p>
+        <div class="quality-note">✓ Nội dung mẫu · Không quảng cáo trên giao diện</div>
+      </section>
+    </div>
+  </main>
+
+  <footer id="gop-y">© 2026 PhimHoatHinh · Giao diện thực hành HTML và CSS</footer>
+
+  <script>
+    const cards = [...document.querySelectorAll(".video-card")];
+    const list = document.getElementById("videoList");
+    const search = document.getElementById("searchInput");
+    const empty = document.getElementById("emptyState");
+    const iframe = document.getElementById("youtubePlayer");
+    const video = document.getElementById("localPlayer");
+    const currentTitle = document.getElementById("currentTitle");
+    const currentMeta = document.getElementById("currentMeta");
+    const youtubeTab = document.getElementById("youtubeTab");
+    const videoTab = document.getElementById("videoTab");
+
+    cards.forEach(card => {
+      card.addEventListener("click", () => {
+        cards.forEach(item => item.classList.remove("selected"));
+        card.classList.add("selected");
+        currentTitle.textContent = card.dataset.title;
+        currentMeta.textContent = card.dataset.views + " lượt xem · Cập nhật gần đây · Kênh phim hoạt hình";
+        iframe.src = "https://www.youtube-nocookie.com/embed/" + card.dataset.youtube + "?rel=0";
+        showYoutube();
+      });
+    });
+
+    search.addEventListener("input", () => {
+      const query = search.value.trim().toLocaleLowerCase("vi");
+      let visible = 0;
+      cards.forEach(card => {
+        const match = card.dataset.title.toLocaleLowerCase("vi").includes(query);
+        card.hidden = !match;
+        if (match) visible++;
+      });
+      empty.style.display = visible ? "none" : "block";
+    });
+
+    function showYoutube() {
+      iframe.hidden = false;
+      video.hidden = true;
+      video.pause();
+      youtubeTab.classList.add("active");
+      videoTab.classList.remove("active");
+    }
+    function showHtmlVideo() {
+      iframe.hidden = true;
+      video.hidden = false;
+      youtubeTab.classList.remove("active");
+      videoTab.classList.add("active");
+    }
+    youtubeTab.addEventListener("click", showYoutube);
+    videoTab.addEventListener("click", showHtmlVideo);
+  </script>
+</body>
+</html>
