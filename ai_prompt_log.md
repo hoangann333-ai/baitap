@@ -1,16 +1,16 @@
-# Nhật ký prompt AI — QuickFeed Index
+# Nhật ký prompt AI — SmartFactory
 
-1. “Giải thích cardinality trong MySQL. Vì sao index trên BOOLEAN hoặc cột chỉ có vài giá trị có thể không giúp truy vấn lọc phần lớn bảng?”
-   - Kết luận dùng: độ chọn lọc thấp khiến optimizer có thể chọn quét bảng; cần xét phân bố dữ liệu và mẫu truy vấn.
+1. “Giải thích covering index trong InnoDB: vì sao SELECT có thể tránh tra cứu clustered index, và chi phí lưu trữ/ghi là gì?”
+   - Ghi nhận: index chứa toàn bộ cột truy vấn cần có thể bao phủ SELECT; mỗi secondary index làm tăng công việc ghi và dung lượng.
 
-2. “Index B-tree prefix trên cột TEXT lưu trữ gì, hỗ trợ kiểu tìm kiếm nào, và hạn chế gì khi tìm chuỗi con?”
-   - Kết luận dùng: prefix index lưu phần đầu của giá trị; tìm từ khóa toàn văn nên đánh giá FULLTEXT.
+2. “InnoDB lưu clustered index và secondary index khác nhau thế nào? Khi INSERT, có phải toàn bộ B-tree được sắp xếp lại không?”
+   - Ghi nhận: secondary index lưu khóa và khóa chính để truy về hàng; không sắp xếp lại toàn cây sau mỗi INSERT, nhưng có cập nhật trang và đôi khi page split.
 
-3. “Một INSERT vào InnoDB cần duy trì các index nào, và vì sao nhiều secondary index làm tăng chi phí ghi?”
-   - Kết luận dùng: mỗi secondary index cần cập nhật bản ghi tương ứng; page split/cache khiến số I/O vật lý không cố định.
+3. “Với bộ lọc `sensor_id = ?` và `recorded_at >= ?`, vì sao thứ tự `(sensor_id, recorded_at)` phù hợp?”
+   - Ghi nhận: điều kiện bằng đặt trước điều kiện range giúp dùng leftmost prefix của composite index.
 
-4. “Viết truy vấn information_schema.TABLES để đọc DATA_LENGTH và INDEX_LENGTH theo MB; giải thích đây có phải số đo thời gian chạy không.”
-   - Kết luận dùng: chia byte cho 1024^2; ghi nhận cùng bảng trước và sau khi drop index.
+4. “Trong `EXPLAIN`, `Using index` và `Using index condition` khác gì? `rows` có phải số thực đo không?”
+   - Ghi nhận: `Using index` chỉ covering access; `rows` là ước tính của optimizer.
 
-5. “Trong bảng chỉ đọc hoặc lưu trữ lâu dài, trade-off của việc giữ nhiều index thay đổi thế nào?”
-   - Kết luận dùng: ít ghi làm giảm chi phí bảo trì thường xuyên, nhưng index vẫn tiêu tốn storage và có thể ảnh hưởng bảo trì; chỉ giữ index phục vụ truy vấn cần thiết.
+5. “Nếu `status VARCHAR(20)` đổi sang `TINYINT`, cần cân nhắc gì về dung lượng?”
+   - Ghi nhận: TINYINT dùng 1 byte; VARCHAR chiếm byte theo dữ liệu thực cộng metadata/charset, nên mức tiết kiệm tùy giá trị và encoding.
