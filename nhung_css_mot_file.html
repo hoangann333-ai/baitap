@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minh họa 3 cách nhúng CSS</title>
+
+  <!-- Cách 2: Internal CSS -->
+  <style>
+    .internal-demo h2 {
+      color: blue;
+      font-family: Tahoma, sans-serif;
+      font-size: 200%;
+    }
+
+    .internal-demo p {
+      color: red;
+      font-family: Arial, sans-serif;
+      font-size: 120%;
+    }
+  </style>
+
+  <!-- Cách 3: stylesheet được nạp từ Blob trong cùng file HTML -->
+  <link id="external-style" rel="stylesheet">
+</head>
+<body>
+  <h1>Ba cách nhúng CSS vào trang HTML</h1>
+
+  <section>
+    <h2>1. Inline style</h2>
+    <h1 style="color: blue; font-family: Tahoma, sans-serif; font-size: 200%;">
+      Đây là đề mục
+    </h1>
+    <p style="color: red; font-family: Arial, sans-serif; font-size: 120%;">
+      Đây là đoạn văn bản.
+    </p>
+  </section>
+
+  <section class="internal-demo">
+    <h2>2. Internal style</h2>
+    <h1>Đây là đề mục</h1>
+    <p>Đây là đoạn văn bản.</p>
+  </section>
+
+  <section class="external-demo">
+    <h2>3. External style</h2>
+    <h1>Đây là đề mục</h1>
+    <p>Đây là đoạn văn bản.</p>
+  </section>
+
+  <script>
+    /*
+      CSS external được nạp dưới dạng Blob để toàn bộ bài nằm trong một file.
+      Trong dự án thông thường, nội dung CSS này nên đặt trong file riêng,
+      ví dụ external.css, rồi liên kết bằng:
+      <link rel="stylesheet" href="external.css">
+    */
+    const externalCss = `
+      .external-demo h1 {
+        color: blue;
+        font-family: Tahoma, sans-serif;
+        font-size: 200%;
+      }
+
+      .external-demo p {
+        color: red;
+        font-family: Arial, sans-serif;
+        font-size: 120%;
+      }
+    `;
+
+    const cssBlob = new Blob([externalCss], { type: "text/css" });
+    const cssUrl = URL.createObjectURL(cssBlob);
+    document.getElementById("external-style").href = cssUrl;
+  </script>
+</body>
+</html>
